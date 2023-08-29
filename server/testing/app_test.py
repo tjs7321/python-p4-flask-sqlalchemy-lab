@@ -62,13 +62,8 @@ class TestApp:
         animal_ul = re.compile(r'\<ul\>Animal.+')
         
         id = 1
-        animals_bool = False
-        while not animals_bool:
-            response = app.test_client().get(f'/zookeeper/{id}')
-            if len(animal_ul.findall(response.data.decode())):
-                animals_bool = True
-
-        assert(animals_bool)
+        response = app.test_client().get(f'/zookeeper/{id}')
+        assert len(animal_ul.findall(response.data.decode()))
 
     def test_enclosure_route(self):
         '''has a resource available at "/enclosure/<id>".'''
@@ -90,10 +85,5 @@ class TestApp:
         animal_ul = re.compile(r'\<ul\>Animal.+')
         
         id = 1
-        animals_bool = False
-        while not animals_bool:
-            response = app.test_client().get(f'/enclosure/{id}')
-            if len(animal_ul.findall(response.data.decode())):
-                animals_bool = True
-
-        assert(animals_bool)
+        response = app.test_client().get(f'/enclosure/{id}')
+        assert len(animal_ul.findall(response.data.decode()))
